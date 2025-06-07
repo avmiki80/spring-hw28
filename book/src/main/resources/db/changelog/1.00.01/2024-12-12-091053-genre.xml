@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="avmiki80" id="2024-12-12T09:01:40.534763" objectQuotingStrategy="LEGACY">
+        <preConditions onError="HALT" onFail="MARK_RAN" onSqlOutput="IGNORE">
+            <not>
+                <tableExists tableName="genres"/>
+            </not>
+        </preConditions>
+        <createTable remarks="Жанры" tableName="genres">
+            <column name="id" remarks="Первичный ключ" type="bigint" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" remarks="Наименование" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <createSequence incrementBy="1" sequenceName="genre_id_seq" startValue="10"/>
+        <addPrimaryKey columnNames="id" constraintName="pk_genre" tableName="genres"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,8 @@
+id;text;book_id
+1;CommentTest1;1
+2;CommentTest1;2
+3;CommentTest2;1
+4;CommentTest3;1
+5;CommentTest2;2
+6;CommentTest3;2
+7;CommentTest4;2

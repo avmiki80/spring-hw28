@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro
+        http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+    <changeSet  author="avmiki80"  id="2025-03-20-0001-moderates-test-data" context="test" runOnChange="true">
+
+        <loadUpdateData
+                         encoding="UTF-8"
+                         file="data/2025-03-20-0001-moderates.csv"
+                         primaryKey="id"
+                         quotchar="'"
+                         relativeToChangelogFile="true"
+                         separator=";"
+                         tableName="moderate_comments"
+                         >
+        </loadUpdateData>
+    </changeSet>
+
+</databaseChangeLog>

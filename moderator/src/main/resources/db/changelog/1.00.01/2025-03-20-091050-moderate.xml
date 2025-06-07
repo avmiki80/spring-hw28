@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="avmiki80" id="2025-03-09T09:01:41.534762" objectQuotingStrategy="LEGACY">
+        <preConditions onError="HALT" onFail="MARK_RAN" onSqlOutput="IGNORE">
+            <not>
+                <tableExists tableName="moderate_comments"/>
+            </not>
+        </preConditions>
+        <createTable remarks="Модерация коментариев" tableName="moderate_comments">
+            <column name="id" remarks="Первичный ключ" type="bigint" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" remarks="Текст коментария" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="moderation_time" remarks="Время модерации коментария" type="TIMESTAMP">
+            </column>
+            <column name="comment_id" remarks="ИД коментария" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createSequence incrementBy="1" sequenceName="moderate_comment_id_seq" startValue="1"/>
+        <addPrimaryKey columnNames="id" constraintName="pk_moderate_comment" tableName="moderate_comments"/>
+    </changeSet>
+</databaseChangeLog>
