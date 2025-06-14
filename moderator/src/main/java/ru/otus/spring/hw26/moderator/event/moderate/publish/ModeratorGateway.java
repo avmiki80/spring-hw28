@@ -9,6 +9,8 @@ import ru.otus.spring.hw26.moderator.dto.CheckedCommentDto;
 import ru.otus.spring.hw26.moderator.dto.ModerateDto;
 import ru.otus.spring.hw26.moderator.event.moderate.ModerateChannelConstant;
 
+import java.util.List;
+
 @MessagingGateway
 public interface ModeratorGateway {
     @Gateway(
@@ -18,6 +20,14 @@ public interface ModeratorGateway {
 
             })
     void sendCommentFromModerate(Message<CheckedCommentDto> msg);
+
+    @Gateway(
+            requestChannel = ModerateChannelConstant.FROM_MODERATE_COMMAND,
+            headers = {
+                    @GatewayHeader(name = "commandName", value = "fromMassModerateCommentCommand")
+
+            })
+    void sendMassCommentFromModerate(Message<List<CheckedCommentDto>> msg);
     @Gateway(
             requestChannel = ModerateChannelConstant.FROM_MODERATE_COMMAND,
             headers = {

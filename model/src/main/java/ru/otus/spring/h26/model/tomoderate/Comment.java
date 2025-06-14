@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Comment {
-    @JsonProperty("text")
-    private String commentText;
     @JsonProperty("id")
     private Long commentId;
+    @JsonProperty("text")
+    private String commentText;
+
 }

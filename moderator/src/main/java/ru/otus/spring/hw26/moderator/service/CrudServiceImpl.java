@@ -73,4 +73,10 @@ public class CrudServiceImpl implements CrudService<ModerateDto, ModerateSearch>
                 result.getTotalElements()
         );
     }
+
+    @Override
+    public void saveAll(List<ModerateDto> objs) {
+        List<Moderate> entities = objs.stream().map(mapper::toEntity).collect(Collectors.toList());;
+        moderateRepository.saveAll(entities);
+    }
 }

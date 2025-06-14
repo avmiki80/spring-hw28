@@ -9,6 +9,8 @@ import ru.otus.spring.h26.model.frommodarate.ModerateResult;
 import ru.otus.spring.h26.model.frommodarate.PageDto;
 import ru.otus.spring.hw26.book.event.moderate.ModerateChannelConstant;
 
+import java.util.List;
+
 @Configuration
 @RequiredArgsConstructor
 public class ModerateCommentSubscribeListener {
@@ -20,6 +22,14 @@ public class ModerateCommentSubscribeListener {
             condition = MODERATE_COMMENT_STREAM_CONDITION)
     void moderateComment(Message<ModerateResult> msg){
         moderateSubscribeListenerService.fromModerateComment(msg);
+    }
+    private static final String MASS_MODERATE_COMMENT_STREAM_CONDITION =
+            "headers['" + "commandName" + "'] == 'fromMassModerateCommentCommand'";
+    @StreamListener(
+            target = ModerateChannelConstant.FROM_MODERATE_COMMAND,
+            condition = MASS_MODERATE_COMMENT_STREAM_CONDITION)
+    void massModerateComment(Message<List<ModerateResult>> msg){
+        moderateSubscribeListenerService.fromMassModerateComment(msg);
     }
 
     private static final String FIND_NOT_MODERATE_COMMENT_STREAM_CONDITION =

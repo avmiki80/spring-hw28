@@ -15,7 +15,7 @@
             </column>
 
         </createTable>
-        <createSequence incrementBy="1" sequenceName="genre_id_seq" startValue="10"/>
+        <createSequence incrementBy="1" sequenceName="genres_id_seq" startValue="10"/>
         <addPrimaryKey columnNames="id" constraintName="pk_genre" tableName="genres"/>
     </changeSet>
 </databaseChangeLog>

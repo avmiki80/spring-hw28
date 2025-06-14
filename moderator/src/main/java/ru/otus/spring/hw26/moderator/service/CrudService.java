@@ -12,4 +12,6 @@ public interface CrudService<D, S extends BaseSearch> {
     List<D> findAll();
     D findById(long id);
     Page<D> findByParams(S params);
+
+    void saveAll(List<D> objs);
 }

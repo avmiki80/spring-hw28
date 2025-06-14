@@ -12,6 +12,9 @@ import ru.otus.spring.hw26.book.dto.CommentDto;
 import ru.otus.spring.hw26.book.exception.ServiceException;
 import ru.otus.spring.hw26.book.feign.ModerateFeignClient;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 @Slf4j
 @ConditionalOnProperty(name = "moderate", havingValue = "feign")
@@ -28,6 +31,20 @@ public class ModeratorServiceFeign implements ModeratorService {
         log.debug("Sending comment for moderation: {}", commentDto);
         try {
             ResponseEntity<ModerateResult> response = moderateFeignClient.moderate(commentDto);
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                throw new ServiceException("Moderation service returned status: " + response.getStatusCode());
+            }
+            return response.getBody();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new ServiceException("Failed to moderate comment: " +  e.getMessage());
+        }
+    }
+
+    @Override
+    public List<ModerateResult> toModerate(List<CommentDto> comments) {
+        try {
+            ResponseEntity<List<ModerateResult>> response = moderateFeignClient.moderates(comments);
             if (!response.getStatusCode().is2xxSuccessful()) {
                 throw new ServiceException("Moderation service returned status: " + response.getStatusCode());
             }

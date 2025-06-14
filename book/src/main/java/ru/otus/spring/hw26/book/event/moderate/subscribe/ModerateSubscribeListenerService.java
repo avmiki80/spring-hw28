@@ -7,8 +7,11 @@ import ru.otus.spring.h26.model.frommodarate.Moderated;
 import ru.otus.spring.h26.model.frommodarate.ModerateResult;
 import ru.otus.spring.h26.model.frommodarate.PageDto;
 
+import java.util.List;
+
 public interface ModerateSubscribeListenerService {
     void fromModerateComment(Message<ModerateResult> message);
+    void fromMassModerateComment(Message<List<ModerateResult>> message);
 
     void findNotModerateComment(Message<PageDto<Moderated>> message);
 }

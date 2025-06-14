@@ -20,12 +20,12 @@ public class GatlingSimulation extends Simulation {
             .baseUrl("http://localhost:8080")
             .acceptHeader("application/json")
             .contentTypeHeader("application/json")
-            .authorizationHeader("Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJX0trTl92aTNqWERWdEdkSGdQYndidEN1aGhxLTg2aVFhRDFGWnpuaWhFIn0.eyJleHAiOjE3NDkyOTY2NDEsImlhdCI6MTc0OTI5MzA0MSwianRpIjoib25ydHJvOjEyMGI3YmVkLWFjZDYtNDMyZi04ZGY0LTllMzVhZjUxZWQ2NSIsImlzcyI6Imh0dHA6Ly9rZXljbG9hazo4MDgwL3JlYWxtcy9saWJyYXJ5IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjU0NWRlMTVhLWI5NTMtNGJiMy1iMGZjLTM1YTk2NjAxNmJmYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImxpYnJhcnkiLCJzaWQiOiI4OGQwMWJlYS05ZTk2LTQzZWYtOGNjNS0xMzNjZDkzOWRjOTkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJkZWZhdWx0LXJvbGVzLWxpYnJhcnkiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImxpYnJhcnkiOnsicm9sZXMiOlsiVVNFUiJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6InVzZXIgdXNlciIsInByZWZlcnJlZF91c2VybmFtZSI6InVzZXIiLCJnaXZlbl9uYW1lIjoidXNlciIsImZhbWlseV9uYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtYWlsLnJ1In0.H0LTQB9aBgs93Xbnj8NQtPVkGvuPDXGH_iX1jjv3nqmrbkMxd67Ojs8lZtmdk_5V-ZxpS2doF4QAfBIUJpuRUU38FS6Az-G4m1QJ_ETXzZEbggzavi0aw7rTh5SI1mFr5MprggRl07V62oEaFGdrLASBWqWobogoWqRSKc3PaJPaNzwB2lTZYxYoxM99mKpYRTW80M5PUQvOAXtSlD6pxLy7wMDwPZonxJhhWPoNswpGG3f-Mk7b8GlG3jRdo57pyqGzr4UT_yvHmhFNi9YeGJLztg431Aqth-q3UTJnjPLiy3sIipafy9-QpHRFl9Gc9Cz3BnKkBG1NQtZqDUwZxA");
+            .authorizationHeader("Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJJX0trTl92aTNqWERWdEdkSGdQYndidEN1aGhxLTg2aVFhRDFGWnpuaWhFIn0.eyJleHAiOjE3NDk4ODYyMjMsImlhdCI6MTc0OTg4MjYyMywianRpIjoib25ydHJvOmNjZGQ0YjEzLTcwMzMtNDcxNC04ZDVjLTAwM2IyNTgyODcyYiIsImlzcyI6Imh0dHA6Ly9rZXljbG9hazo4MDgwL3JlYWxtcy9saWJyYXJ5IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImFiY2Q3YzgwLTg5YjMtNDhhMC04M2U4LTI2Mzc0YWU4MDQ2ZiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImxpYnJhcnkiLCJzaWQiOiIyZjM2YWU5MC1iYzRjLTQ3M2MtYmM1OC1jZmI0MmFmMWY2YzQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJkZWZhdWx0LXJvbGVzLWxpYnJhcnkiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImxpYnJhcnkiOnsicm9sZXMiOlsiQURNSU4iLCJVU0VSIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiYWRtaW4gYWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiIsImdpdmVuX25hbWUiOiJhZG1pbiIsImZhbWlseV9uYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQG1haWwucnUifQ.h_PmHkrXvZNML6JDXK42D2adW9lZSkLOntycupJK5SBZzDjz700z7DYRVTtWkKunGIXGsm5aPxaKhWcYVFNXbiNk256AE3l1iYQlof2ovQi-XZDdBCYzeDcZzyGy5GYZOEVug5AnUmy6l-l6kWkA0blIEI0M2g5z7kRDqz1RWYvLBQogffu_RD69V_ZbjHyLGp6Awj9OSKXUAkQ4jY0fGYfeRYMlWjwNdQp7jMeP9Ez_h5U2k6uxJR8yL7EjyVrAd6IpJLRPafaNNLcymBbjT2nalkNygxo4S3nsuj0cl05uzdUWe7CKlJk5WMYRcImjJqxiMU78oF5boUL0-L5tmA");
 
     // Генерация JSON-массива коментариев
     ChainBuilder generateComments =
             exec(session -> {
-                String commentsJson = IntStream.rangeClosed(1, 1000)
+                String commentsJson = IntStream.rangeClosed(1, 3000)
                         .mapToObj(i -> String.format(
                                 "{\"text\":\"Comment%d\",\"bookTitle\":\"Book%d\"}", i, i%3))
                         .collect(Collectors.joining(",", "[", "]"));
@@ -59,9 +59,9 @@ public class GatlingSimulation extends Simulation {
                 comments.injectOpen(
                         nothingFor(5), // Ничего не делать 5 секунд
                         rampUsers(5).during(10), // Линейно увеличивать до 5 запросов за 10 секунд
-                        nothingFor(5), // Ничего не делать 5 секунд
+//                        nothingFor(5), // Ничего не делать 5 секунд
                         constantUsersPerSec(5).during(30), // Поддерживать 5 запросов/сек в течение 30 секунд
-                        nothingFor(5), // Ничего не делать 5 секунд
+//                        nothingFor(5), // Ничего не делать 5 секунд
                         rampUsersPerSec(5).to(20).during(20) // Увеличивать с 5 до 20 запросов/сек за 20 секунд
                 )
         ).protocols(httpProtocol)

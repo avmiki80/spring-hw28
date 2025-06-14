@@ -18,12 +18,12 @@ import java.time.LocalDateTime;
 @RequestMapping("/moderator")
 @RequiredArgsConstructor
 public class ModeratorController {
-    private final ModeratorService moderatorService;
+//    private final ModeratorService moderatorService;
     private final CrudService<ModerateDto, ModerateSearch> crudService;
-    @PostMapping()
-    public ResponseEntity<CheckedCommentDto> moderate(@RequestBody Comment comment){
-        return ResponseEntity.ok(moderatorService.moderate(comment));
-    }
+//    @PostMapping()
+//    public ResponseEntity<CheckedCommentDto> moderate(@RequestBody Comment comment){
+//        return ResponseEntity.ok(moderatorService.moderate(comment));
+//    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable(name = "id") Long id){
         crudService.deleteById(id);

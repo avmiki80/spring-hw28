@@ -6,7 +6,4 @@
 
     <property name="autoIncrement" value="false" dbms="postgresql,mssql,oracle"/>
     <property name="autoIncrement" value="true" dbms="h2"/>
-
-    <!-- Put your changesets here -->
-
 </databaseChangeLog>

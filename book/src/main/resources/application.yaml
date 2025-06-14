@@ -25,26 +25,64 @@ spring:
       - feign
       - trace
 
-#resilience4j:
-#  bulkhead:
-#    instances:
-#      moderatorService:
-#        base-config: default
-#        maxConcurrentCalls: 20
-#    metrics:
-#      enabled: true
-#    configs:
-#      default:
-#        maxConcurrentCalls: 20
-#        maxWaitDuration: 5ms
-#  ratelimiter:
-#    metrics:
-#      enabled: true
-#    instances:
-#      moderatorService:
-#        base-config: default
-#    configs:
-#      default:
-#        limitForPeriod: 10
-#        limitRefreshPeriod: 1s
-#        timeoutDuration: 100ms
+#  kafka:
+#    bootstrap-servers: ${KAFKA_URL:localhost:29092}
+#    admin:
+#      properties:
+#        request.timeout.ms: ${KAFKA_REQUEST_TIMEOUT:5000}
+#    consumer:
+#      properties:
+#        fetch:
+#          min:
+#            bytes: 1048576
+#          max:
+#            wait:
+#              ms: 5000 # Добавлено
+#
+#        session:
+#          timeout:
+#            ms: 30000
+#        heartbeat:
+#          interval:
+#            ms: 10000
+#        max:
+#          poll:
+#            records: ${KAFKA_CONSUMER_MAX_POLL_RECORDS:500} # Увеличено для batch
+#            interval:
+#              ms: ${KAFKA_CONSUMER_MAX_POLL_INTERVAL_MS:300000}
+#      enable-auto-commit: false
+#      auto-offset-reset: latest
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      properties:
+#        linger:
+#          ms: 100 # Добавлено
+#        batch:
+#          size: 16384 # Добавлено
+#        compression:
+#          type: snappy # Добавлено
+#
+#  cloud:
+#    stream:
+#      binders:
+#        binderName:
+#          type: kafka
+#      bindings:
+#        input: # ваше имя канала
+#          consumer:
+#            batch-mode: true # Включаем batch обработку
+#      kafka:
+#        binder:
+#          replicationFactor: ${KAFKA_REPLICATION_FACTOR:-1}
+#          minPartitionCount: ${MIN_PARTITION_COUNT:3}
+#          requiredAcks: ${REQUIRED_ACKS:all}
+#          producerProperties:
+#            enable.idempotence: ${KAFKA_PRODUCER_ENABLE_IDEMPOTENCE:true}
+#          consumerProperties:
+#            maxAttempts: ${KAFKA_CONSUMER_MAX_ATTEMPTS:3}
+#            backOffInitialInterval: ${KAFKA_CONSUMER_BACK_OFF_INITIAL_INTERVAL:1000}
+#            backOffMaxInterval: ${KAFKA_CONSUMER_BACK_OFF_MAX_INTERVAL:10000}
+#            backOffMultiplier: ${KAFKA_CONSUMER_BACK_OFF_MULTIPLIER:2}
+#consumer:
+#  group: ${GRPOUP:book-service}

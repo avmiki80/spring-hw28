@@ -25,7 +25,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <createSequence incrementBy="1" sequenceName="book_id_seq" startValue="10"/>
+        <createSequence incrementBy="1" sequenceName="books_id_seq" startValue="10"/>
         <addPrimaryKey columnNames="id" constraintName="pk_book" tableName="books"/>
 <!--        <addForeignKeyConstraint  baseColumnNames="genre_id"-->
 <!--                                  baseTableName="books"-->

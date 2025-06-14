@@ -19,6 +19,7 @@ import ru.otus.spring.hw26.moderator.service.ModeratorService;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -42,12 +43,33 @@ public class ModerateSubscribeListenerServiceImpl implements ModerateSubscribeLi
             Comment comment = message.getPayload();
             CheckedCommentDto checkedCommentDto = moderatorService.moderate(comment);
             log.debug("результат проверки коментария {}", checkedCommentDto);
-            Message<CheckedCommentDto> result = MessageBuilder.withPayload(checkedCommentDto)
+            Message<CheckedCommentDto> msg = MessageBuilder.withPayload(checkedCommentDto)
                     .setHeader("messageGuid", message.getHeaders().get("messageGuid"))
 //                    .setHeader("commandName", message.getHeaders().get("commandName"))
                     .build();
-            if (!checkedCommentDto.getCommentStatus())
-                moderatorGateway.sendCommentFromModerate(result);
+//            if (!checkedCommentDto.getCommentStatus())
+            moderatorGateway.sendCommentFromModerate(msg);
+        } catch (Exception exception) {
+            log.debug(exception.getMessage());
+        }
+    }
+
+    @Override
+    public void massModerateComment(Message<List<Comment>> message) {
+        try {
+            log.debug("принятое сообщение {}", message);
+            if (Objects.isNull(message.getPayload())) {
+                log.info("Не передан payload {}", message);
+            }
+            List<Comment> comments = message.getPayload();
+            if(!comments.isEmpty()){
+                List<CheckedCommentDto> checkedComments = moderatorService.massModerate(comments);
+                Message<List<CheckedCommentDto>> msg = MessageBuilder.withPayload(checkedComments)
+                        .setHeader("messageGuid", message.getHeaders().get("messageGuid"))
+                        .build();
+                moderatorGateway.sendMassCommentFromModerate(msg);
+            }
+
         } catch (Exception exception) {
             log.debug(exception.getMessage());
         }

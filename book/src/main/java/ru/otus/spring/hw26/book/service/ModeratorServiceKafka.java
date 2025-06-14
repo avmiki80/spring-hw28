@@ -9,7 +9,10 @@ import ru.otus.spring.h26.model.frommodarate.ModerateResult;
 import ru.otus.spring.hw26.book.dto.CommentDto;
 import ru.otus.spring.hw26.book.event.moderate.publish.ModeratorGateway;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +29,20 @@ public class ModeratorServiceKafka implements ModeratorService{
         // Возвращаю результат со статусом true для поддержки пседосинхронности вызова.
         // Не придется ломать логику обработки если модерация коментария будет происходить синхронно, через REST
         return ModerateResult.builder().commentStatus(true).build();
+    }
+
+    @Override
+    public List<ModerateResult> toModerate(List<CommentDto> comments) {
+        Message<List<CommentDto>> messages = MessageBuilder.withPayload(comments)
+                .setHeader("commandName", "moderateCommentCommand")
+                .setHeader("messageGuid", UUID.randomUUID())
+                .build();
+        moderatorGateway.sendMassCommentToModerate(messages);
+        // Возвращаю результат со статусом true для поддержки пседосинхронности вызова.
+        // Не придется ломать логику обработки если модерация коментария будет происходить синхронно, через REST
+        return comments.stream()
+                .parallel()
+                .map(i -> ModerateResult.builder().commentStatus(true).build())
+                .collect(Collectors.toList());
     }
 }

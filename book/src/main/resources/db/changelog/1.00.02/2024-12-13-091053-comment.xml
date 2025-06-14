@@ -22,7 +22,7 @@
                 />
             </column>
         </createTable>
-        <createSequence incrementBy="1" sequenceName="comment_id_seq" startValue="10"/>
+        <createSequence incrementBy="1" sequenceName="comments_id_seq" startValue="10"/>
         <addPrimaryKey columnNames="id" constraintName="pk_comment" tableName="comments"/>
     </changeSet>
 </databaseChangeLog>

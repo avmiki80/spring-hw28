@@ -17,7 +17,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <createSequence incrementBy="1" sequenceName="author_id_seq" startValue="10"/>
+        <createSequence incrementBy="1" sequenceName="authors_id_seq" startValue="10"/>
         <addPrimaryKey columnNames="id" constraintName="pk_author" tableName="authors"/>
     </changeSet>
 </databaseChangeLog>

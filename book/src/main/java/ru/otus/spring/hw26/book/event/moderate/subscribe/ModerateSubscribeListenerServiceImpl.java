@@ -15,7 +15,11 @@ import ru.otus.spring.hw26.book.repository.CommentRepository;
 import ru.otus.spring.hw26.book.exception.ServiceException;
 
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -36,6 +40,26 @@ public class ModerateSubscribeListenerServiceImpl implements ModerateSubscribeLi
                 persistComment.setText(payload.getReason());
             }
 //            log.info("результат проверки коментария {}", payload);
+        } catch (ServiceException exception){
+            exception.getMessage();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void fromMassModerateComment(Message<List<ModerateResult>> message) {
+        try {
+            if(Objects.isNull(message.getHeaders().get("commandName"))) {
+                throw new ServiceException("Не передан payload {}" + message);
+            }
+            List<ModerateResult> payload = message.getPayload();
+            Map<Long, ModerateResult> rejectedCommentMap = payload.stream()
+                    .filter(i -> !i.getCommentStatus())
+                    .collect(Collectors.toMap(ModerateResult::getCommentId, Function.identity()));
+            if(!rejectedCommentMap.isEmpty()){
+                commentRepository.findAllById(rejectedCommentMap.keySet()).forEach(c -> c.setText(rejectedCommentMap.get(c.getId()).getReason()));
+            }
+//            log.debug("результат проверки коментария {}", payload);
         } catch (ServiceException exception){
             exception.getMessage();
         }

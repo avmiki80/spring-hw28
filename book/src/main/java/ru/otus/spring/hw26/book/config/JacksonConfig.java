@@ -1,6 +1,5 @@
-package ru.otus.spring.hw26.moderator.config;
+package ru.otus.spring.hw26.book.config;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +9,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.otus.spring.h26.model.tomoderate.Comment;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

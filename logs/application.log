@@ -1,0 +1,3 @@
+2025-06-13 22:47:48.626  INFO [book-service,,] 8548 --- [SpringApplicationShutdownHook] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2025-06-13 22:47:48.644  INFO [book-service,,] 8548 --- [SpringApplicationShutdownHook] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_BOOK-SERVICE/book-service:8101 - deregister  status: 200
+2025-06-13 22:47:48.653  INFO [book-service,,] 8548 --- [SpringApplicationShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient

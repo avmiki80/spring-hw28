@@ -1,6 +1,6 @@
-id;title;genre_id;author_id
-1;Книга1;1;1
-2;Книга2;1;2
-3;Book0;1;2
-4;Book1;1;2
-5;Book2;2;1
+title;genre_id;author_id
+Книга1;1;1
+Книга2;1;2
+Book0;1;2
+Book1;1;2
+Book2;2;1

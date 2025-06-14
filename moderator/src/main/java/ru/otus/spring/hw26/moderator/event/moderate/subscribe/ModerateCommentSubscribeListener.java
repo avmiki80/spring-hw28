@@ -9,6 +9,8 @@ import ru.otus.spring.h26.model.tomoderate.Comment;
 import ru.otus.spring.hw26.moderator.event.moderate.ModerateChannelConstant;
 import ru.otus.spring.hw26.moderator.dto.ModerateSearch;
 
+import java.util.List;
+
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
@@ -24,6 +26,20 @@ public class ModerateCommentSubscribeListener {
     ){
         try {
             moderateSubscribeListenerService.moderateComment(msg);
+        } catch (Exception e){
+            log.info(e.getMessage());
+        }
+    }
+    private static final String MASS_MODERATE_COMMENT_STREAM_CONDITION =
+            "headers['" + "commandName" + "'] == 'moderateMassCommentCommand'";
+    @StreamListener(
+            target = ModerateChannelConstant.TO_MODERATE_COMMAND,
+            condition = MASS_MODERATE_COMMENT_STREAM_CONDITION)
+    void massModerateComment(
+            Message<List<Comment>> msg
+    ){
+        try {
+            moderateSubscribeListenerService.massModerateComment(msg);
         } catch (Exception e){
             log.info(e.getMessage());
         }

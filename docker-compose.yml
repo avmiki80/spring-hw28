@@ -28,6 +28,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts/:/docker-entrypoint-initdb.d
     restart: unless-stopped
     networks:
       - monitoring1
@@ -206,6 +207,9 @@ services:
     container_name: moderator-service
     environment:
       - SERVICE_PORT=8081
+      - DB_URL=jdbc:postgresql://postgres:5432/library?currentSchema=moderate
+      - DB_LOGIN=postgres
+      - DB_PASSWORD=postgres
       - KAFKA_URL=kafka:29092
       - EUREKA_URL=http://eureka-service1:8761/eureka
       - CONFIG_IMPORT=configserver:http://configuration-service:8888
@@ -230,6 +234,9 @@ services:
     container_name: moderator-service2
     environment:
       - SERVICE_PORT=8082
+      - DB_URL=jdbc:postgresql://postgres:5432/library?currentSchema=moderate
+      - DB_LOGIN=postgres
+      - DB_PASSWORD=postgres
       - KAFKA_URL=kafka:29092
       - EUREKA_URL=http://eureka-service1:8761/eureka
       - CONFIG_IMPORT=configserver:http://configuration-service:8888
@@ -254,6 +261,9 @@ services:
     container_name: moderator-service3
     environment:
       - SERVICE_PORT=8083
+      - DB_URL=jdbc:postgresql://postgres:5432/library?currentSchema=moderate
+      - DB_LOGIN=postgres
+      - DB_PASSWORD=postgres
       - KAFKA_URL=kafka:29092
       - EUREKA_URL=http://eureka-service1:8761/eureka
       - CONFIG_IMPORT=configserver:http://configuration-service:8888
@@ -276,17 +286,17 @@ services:
     container_name: book-service
     environment:
       - SERVICE_PORT=8080
-      - DB_URL=jdbc:postgresql://postgres:5432/library
+      - DB_URL=jdbc:postgresql://postgres:5432/library?currentSchema=library
       - DB_LOGIN=postgres
       - DB_PASSWORD=postgres
       - KAFKA_URL=kafka:29092
-      - MODERATOR_SERVICE_URL=http://moderator-service:8080/moderator
+      - MODERATOR_SERVICE_URL=http://moderator-service:8081
       - EUREKA_URL=http://eureka-service2:8761/eureka
       - CONFIG_IMPORT=configserver:http://configuration-service:8888
       - JWK_URI=http://keycloak:8080/realms/library/protocol/openid-connect/certs
       - TRACE_URL=http://zipkin:9411
       - TRACE_ENABLED=true
-      - MODERATOR_MODE=feign
+      - MODERATOR_MODE=kafka
       - HIKARI_MAXIMUM_POOLSIZE=20
       - HIKARI_CONNECTION_TIMEOUT=60000
       - LOGGING_ROOT_LEVEL=INFO
