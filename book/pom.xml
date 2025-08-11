@@ -132,6 +132,11 @@
             <groupId>ru.otus.spring.hw26</groupId>
             <artifactId>model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.8.0</version>
+        </dependency>
     </dependencies>
 
     <build>

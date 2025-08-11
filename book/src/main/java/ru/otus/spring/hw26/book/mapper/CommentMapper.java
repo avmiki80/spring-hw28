@@ -16,11 +16,12 @@ public class CommentMapper implements Mapper<CommentDto, Comment>{
                 .text(entity.getText())
                 .bookTitle(Objects.isNull(entity.getBook()) || Objects.isNull(entity.getBook().getTitle()) ?
                         "" : entity.getBook().getTitle())
+                .userId(entity.getUserId())
                 .build();
     }
 
     @Override
     public Comment toEntity(CommentDto dto) {
-        return new Comment(dto.getId(), dto.getText(), Book.builder().title(dto.getBookTitle()).build());
+        return new Comment(dto.getId(), dto.getText(), Book.builder().title(dto.getBookTitle()).build(), dto.getUserId());
     }
 }

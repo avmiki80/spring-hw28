@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="avmiki80" id="2025-06-21T09:01:40.534763" objectQuotingStrategy="LEGACY">
+        <preConditions onError="HALT" onFail="MARK_RAN" onSqlOutput="IGNORE">
+            <and>
+                <tableExists tableName="loan_books"/>
+                <not>
+                    <and>
+                        <columnExists tableName="loan_books" columnName="first_name"/>
+                        <columnExists tableName="loan_books" columnName="last_name"/>
+                        <columnExists tableName="loan_books" columnName="email"/>
+                    </and>
+                </not>
+            </and>
+        </preConditions>
+        <addColumn tableName="loan_books">
+            <column name="first_name" type="varchar(255)" remarks="Keycloak first_name">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_name" type="varchar(255)" remarks="Keycloak last_name">
+                <constraints nullable="true"/>
+            </column>
+            <column name="email" type="varchar(255)" remarks="Keycloak эл. email">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

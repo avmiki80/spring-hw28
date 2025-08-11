@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @DisplayName("Класс GenreRepository для работы с жанрами")
 @ContextConfiguration(classes = ConfigTest.class)
 class GenreRepositoryTest {
-    private static final int EXPECTED_GENRES_COUNT = 2;
+    private static final int EXPECTED_GENRES_COUNT = 3;
     private static final long EXISTING_GENRE_ID = 1L;
     private static final String EXISTING_GENRE_TITLE = "Фантастика";
 

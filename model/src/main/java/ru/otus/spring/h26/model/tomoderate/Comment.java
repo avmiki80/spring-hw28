@@ -15,5 +15,4 @@ public class Comment {
     private Long commentId;
     @JsonProperty("text")
     private String commentText;
-
 }

@@ -44,7 +44,7 @@ public class ConfigTest {
     }
     @Bean
     public CrudService<GenreDto, GenreSearch> genreService(){
-        return new GenreService(genreRepository, genreMapper());
+        return new GenreService(genreRepository, genreMapper(), bookRepository);
     }
     @Bean
     public Mapper<AuthorDto, Author> authorMapper(){
@@ -52,7 +52,7 @@ public class ConfigTest {
     }
     @Bean
     public CrudService<AuthorDto, AuthorSearch> authorService(){
-        return new AuthorService(authorRepository, authorMapper());
+        return new AuthorService(authorRepository, authorMapper(), bookRepository);
     }
     @Bean
     public Mapper<BookDto, Book> bookMapper(){

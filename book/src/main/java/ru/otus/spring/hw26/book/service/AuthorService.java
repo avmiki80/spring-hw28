@@ -3,12 +3,14 @@ package ru.otus.spring.hw26.book.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.otus.spring.hw26.book.aspect.Auditing;
 import ru.otus.spring.hw26.book.domain.Author;
 import ru.otus.spring.hw26.book.dto.AuthorDto;
 import ru.otus.spring.hw26.book.exception.ServiceException;
 import ru.otus.spring.hw26.book.mapper.Mapper;
 import ru.otus.spring.hw26.book.repository.AuthorRepository;
 import ru.otus.spring.hw26.book.dto.AuthorSearch;
+import ru.otus.spring.hw26.book.repository.BookRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +20,11 @@ import java.util.stream.Collectors;
 public class AuthorService implements CrudService<AuthorDto, AuthorSearch> {
     private final AuthorRepository authorRepository;
     private final Mapper<AuthorDto, Author> authorMapper;
+    private final BookRepository bookRepository;
 
     @Override
     @Transactional
+    @Auditing
     public AuthorDto save(AuthorDto obj) {
         Author author = authorMapper.toEntity(obj);
         return authorMapper.toDto(authorRepository.save(author));
@@ -28,6 +32,7 @@ public class AuthorService implements CrudService<AuthorDto, AuthorSearch> {
 
     @Override
     @Transactional
+    @Auditing
     public AuthorDto update(long id, AuthorDto obj) {
         Author persistAuthor = authorRepository.findById(id).orElseThrow(() -> new ServiceException("exception.object-not-found"));
         persistAuthor.setFirstname(obj.getFirstname());
@@ -38,9 +43,13 @@ public class AuthorService implements CrudService<AuthorDto, AuthorSearch> {
 
     @Override
     @Transactional
+    @Auditing
     public void deleteById(long id) {
         try {
-            authorRepository.deleteById(id);
+            if(bookRepository.findByAuthorId(id).isEmpty())
+                authorRepository.deleteById(id);
+            else
+                throw new ServiceException("Нельзя удалить автора связаного с книгой");
         } catch (Exception e){
             throw new ServiceException(e.getMessage());
         }

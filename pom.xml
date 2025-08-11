@@ -34,6 +34,8 @@
         <module>moderator</module>
         <module>book</module>
         <module>model</module>
+        <module>mailsender</module>
+        <module>loan</module>
     </modules>
 
     <dependencyManagement>

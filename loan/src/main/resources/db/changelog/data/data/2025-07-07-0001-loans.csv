@@ -1,0 +1,4 @@
+loan_date;return_date;book_id;user_id;description;first_name;last_name;email
+2025-07-07;2025-07-21;1;545de15a-b953-4bb3-b0fc-35a966016bfa;test;user;user;user@mail.ru
+2025-07-07;2025-07-21;2;545de15a-b953-4bb3-b0fc-35a966016bfa;test;user;user;user@mail.ru
+2025-07-07;2025-07-21;1;abcd7c80-89b3-48a0-83e8-26374ae8046f;test;admin;admin;avmiki81@mail.ru

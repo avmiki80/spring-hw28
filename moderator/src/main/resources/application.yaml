@@ -13,4 +13,8 @@ spring:
       - log
       - eureka
       - trace
+      - security
+      - feign
+      - mailsender
+
 

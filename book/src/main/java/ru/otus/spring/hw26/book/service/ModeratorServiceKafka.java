@@ -19,11 +19,13 @@ import java.util.stream.Collectors;
 @ConditionalOnProperty(name = "moderate", havingValue = "kafka")
 public class ModeratorServiceKafka implements ModeratorService{
     private final ModeratorGateway moderatorGateway;
+    private final CustomSecurityContextService securityContextService;
     @Override
     public ModerateResult toModerate(CommentDto commentDto) {
         Message<CommentDto> message = MessageBuilder.withPayload(commentDto)
                 .setHeader("commandName", "moderateCommentCommand")
                 .setHeader("messageGuid", UUID.randomUUID())
+                .setHeader("Authorization", securityContextService.getJwtToken())
                 .build();
         moderatorGateway.sendCommentToModerate(message);
         // Возвращаю результат со статусом true для поддержки пседосинхронности вызова.
@@ -36,6 +38,7 @@ public class ModeratorServiceKafka implements ModeratorService{
         Message<List<CommentDto>> messages = MessageBuilder.withPayload(comments)
                 .setHeader("commandName", "moderateCommentCommand")
                 .setHeader("messageGuid", UUID.randomUUID())
+                .setHeader("Authorization", securityContextService.getJwtToken())
                 .build();
         moderatorGateway.sendMassCommentToModerate(messages);
         // Возвращаю результат со статусом true для поддержки пседосинхронности вызова.

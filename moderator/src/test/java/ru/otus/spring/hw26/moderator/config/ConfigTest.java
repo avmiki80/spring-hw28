@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import ru.otus.spring.hw26.moderator.domain.Moderate;
 import ru.otus.spring.hw26.moderator.dto.ModerateDto;
 import ru.otus.spring.hw26.moderator.mapper.Mapper;
@@ -19,7 +20,8 @@ import ru.otus.spring.hw26.moderator.service.CrudServiceImpl;
 
 @TestConfiguration
 @ComponentScan(
-        basePackages = "ru.otus.spring.hw26.moderator.config"
+        basePackages = "ru.otus.spring.hw26.moderator.config",
+        excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {KafkaSecurityConfig.class, CustomSecurityConfig.class})
 )
 public class ConfigTest {
 

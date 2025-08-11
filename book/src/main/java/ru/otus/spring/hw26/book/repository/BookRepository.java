@@ -33,4 +33,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     long count();
     @EntityGraph(attributePaths = {"genre", "author"})
     List<Book> findByTitleIn(Collection<String> titles);
+    @Query("select b from Book b left join fetch b.author where :authorId is null or b.author.id = :authorId")
+    List<Book> findByAuthorId(
+            @Param("authorId") Long authorId);
+    @Query("select b from Book b left join fetch b.genre where :genreId is null or b.genre.id = :genreId")
+    List<Book> findByGenreId(
+            @Param("genreId") Long genreId);
 }

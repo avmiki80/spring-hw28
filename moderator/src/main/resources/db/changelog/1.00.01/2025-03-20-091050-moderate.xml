@@ -19,7 +19,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <createSequence incrementBy="1" sequenceName="moderate_comment_id_seq" startValue="1"/>
+        <createSequence incrementBy="1" sequenceName="moderate_comments_id_seq" startValue="1"/>
         <addPrimaryKey columnNames="id" constraintName="pk_moderate_comment" tableName="moderate_comments"/>
     </changeSet>
 </databaseChangeLog>

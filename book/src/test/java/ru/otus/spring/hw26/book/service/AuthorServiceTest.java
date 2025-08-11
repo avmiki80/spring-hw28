@@ -25,8 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @ExtendWith(SpringExtension.class)
 @DisplayName("Класс AuthorService для работы с авторами")
 class AuthorServiceTest {
-    private static final int EXPECTED_AUTHORS_COUNT = 2;
+    private static final int EXPECTED_AUTHORS_COUNT = 3;
     private static final long EXISTING_AUTHOR_ID = 1L;
+    private static final long EXISTING_AUTHOR_FOR_DELETE_ID = 3L;
     private static final long UNEXISTING_AUTHOR_ID = 3000L;
     private static final String EXISTING_AUTHOR_LASTNAME = "Пушкин";
     private static final String EXISTING_AUTHOR_FIRSTNAME = "Александр";
@@ -97,12 +98,20 @@ class AuthorServiceTest {
     public void whenGetGenreWithUnexistedId_thenThrowsException(){
         assertThatThrownBy(() -> authorService.findById(UNEXISTING_AUTHOR_ID)).isInstanceOf(ServiceException.class);
     }
+    @DisplayName("Удаление автора по ID, если существует книга")
+    @Test
+    public void whenDeleteAuthorWithExistBook_thenThrowsException(){
+        assertAll(
+                () -> assertThatThrownBy(() -> authorService.deleteById(EXISTING_AUTHOR_ID)).isInstanceOf(ServiceException.class),
+                () -> assertDoesNotThrow(() -> authorService.findById(EXISTING_AUTHOR_ID))
+        );
+    }
     @DisplayName("Удаление автора по ID")
     @Test
     public void whenDeleteAuthor_thenThrowsException(){
         assertAll(
-                () -> assertDoesNotThrow(() -> authorService.deleteById(EXISTING_AUTHOR_ID)),
-                () -> assertThatThrownBy(() -> authorService.findById(EXISTING_AUTHOR_ID)).isInstanceOf(ServiceException.class)
+                () -> assertDoesNotThrow(() -> authorService.deleteById(EXISTING_AUTHOR_FOR_DELETE_ID)),
+                () -> assertThatThrownBy(() -> authorService.findById(EXISTING_AUTHOR_FOR_DELETE_ID)).isInstanceOf(ServiceException.class)
         );
     }
 }

@@ -1,6 +1,5 @@
 package ru.otus.spring.hw26.book.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,7 +11,6 @@ import ru.otus.spring.hw26.book.dto.CommentDto;
 import ru.otus.spring.hw26.book.exception.ServiceException;
 import ru.otus.spring.hw26.book.feign.ModerateFeignClient;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service

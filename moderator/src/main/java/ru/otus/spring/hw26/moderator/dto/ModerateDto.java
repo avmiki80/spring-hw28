@@ -20,4 +20,8 @@ public class ModerateDto {
     private LocalDateTime moderationTime;
 
     private Long commentId;
+    private String userId;
+    private String firstname;
+    private String lastname;
+    private String email;
 }

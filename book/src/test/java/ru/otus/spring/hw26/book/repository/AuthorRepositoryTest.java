@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @ContextConfiguration(classes = ConfigTest.class)
 @DisplayName("Класс AuthorRepository для работы с авторами")
 class AuthorRepositoryTest {
-    private static final int EXPECTED_AUTHORS_COUNT = 2;
+    private static final int EXPECTED_AUTHORS_COUNT = 3;
     private static final long EXISTING_AUTHOR_ID = 1L;
     private static final String EXISTING_AUTHOR_LASTNAME = "Пушкин";
     private static final String EXISTING_AUTHOR_FIRSTNAME = "Александр";

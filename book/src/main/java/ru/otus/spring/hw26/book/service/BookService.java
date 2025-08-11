@@ -3,6 +3,7 @@ package ru.otus.spring.hw26.book.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.otus.spring.hw26.book.aspect.Auditing;
 import ru.otus.spring.hw26.book.domain.Author;
 import ru.otus.spring.hw26.book.domain.Book;
 import ru.otus.spring.hw26.book.domain.Genre;
@@ -29,6 +30,7 @@ public class BookService implements CrudService<BookDto, BookSearch> {
 
     @Override
     @Transactional
+    @Auditing
     public BookDto save(BookDto obj) {
         Book book = bookMapper.toEntity(obj);
 
@@ -50,6 +52,7 @@ public class BookService implements CrudService<BookDto, BookSearch> {
 
     @Override
     @Transactional
+    @Auditing
     public BookDto update(long id, BookDto obj) {
         Book persistBook = bookRepository.findById(id).orElseThrow(() -> new ServiceException("exception.object-not-found"));
         persistBook.setTitle(obj.getTitle());
@@ -70,6 +73,7 @@ public class BookService implements CrudService<BookDto, BookSearch> {
 
     @Override
     @Transactional
+    @Auditing
     public void deleteById(long id) {
         try {
             bookRepository.deleteById(id);

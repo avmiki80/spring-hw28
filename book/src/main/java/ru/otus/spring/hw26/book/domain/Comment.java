@@ -22,4 +22,7 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     private Book book;
+
+    @Column(name = "user_id")
+    private String userId;
 }

@@ -26,7 +26,7 @@ public class JacksonConfig {
     @Bean
     public Module collectionSupportModule() {
         SimpleModule module = new SimpleModule();
-        module.addDeserializer(List.class, new CustomCollectionDeserializer());
+        module.addDeserializer(List.class, new CommentCollectionDeserializer());
         return module;
     }
     @Bean

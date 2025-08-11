@@ -40,19 +40,6 @@ public class CustomCollectionDeserializer extends JsonDeserializer<List<Comment>
                 if (element.has("text")) {
                     dto.setCommentText(element.get("text").asText());
                 }
-
-//                if (dto.getCommentText() == null || dto.getCommentText().isEmpty()) {
-//                    ctxt.reportInputMismatch(Comment.class,
-//                            "CommentText cannot be empty in element: %s", element);
-//                    continue; // или throw исключение
-//                }
-
-                // Кастомная логика преобразования
-//                if (element.has("timestamp")) {
-//                    String timestamp = element.get("timestamp").asText();
-//                    // преобразование строки в LocalDateTime и т.д.
-//                }
-
                 result.add(dto);
 
             } catch (Exception e) {

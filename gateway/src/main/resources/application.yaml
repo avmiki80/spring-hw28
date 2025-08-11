@@ -15,6 +15,18 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: moderator-service
+          uri: lb://moderator-service
+          predicates:
+            - Path=/api/moderator/**
+          filters:
+            - StripPrefix=1
+        - id: loan-service
+          uri: lb://loan-service
+          predicates:
+            - Path=/api/loan/**
+          filters:
+            - StripPrefix=2
         - id: book-service
           uri: lb://book-service
           predicates:

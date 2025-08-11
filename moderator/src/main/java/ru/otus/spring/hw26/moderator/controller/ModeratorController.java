@@ -5,12 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.otus.spring.h26.model.tomoderate.Comment;
-import ru.otus.spring.hw26.moderator.dto.CheckedCommentDto;
 import ru.otus.spring.hw26.moderator.dto.ModerateDto;
 import ru.otus.spring.hw26.moderator.dto.ModerateSearch;
+import ru.otus.spring.hw26.moderator.service.CheckViolator;
 import ru.otus.spring.hw26.moderator.service.CrudService;
-import ru.otus.spring.hw26.moderator.service.ModeratorService;
 
 import java.time.LocalDateTime;
 
@@ -18,12 +16,14 @@ import java.time.LocalDateTime;
 @RequestMapping("/moderator")
 @RequiredArgsConstructor
 public class ModeratorController {
-//    private final ModeratorService moderatorService;
     private final CrudService<ModerateDto, ModerateSearch> crudService;
-//    @PostMapping()
-//    public ResponseEntity<CheckedCommentDto> moderate(@RequestBody Comment comment){
-//        return ResponseEntity.ok(moderatorService.moderate(comment));
-//    }
+    private final CheckViolator checkViolator;
+    @GetMapping("/check")
+    public ResponseEntity<Void> check(){
+        checkViolator.check();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable(name = "id") Long id){
         crudService.deleteById(id);

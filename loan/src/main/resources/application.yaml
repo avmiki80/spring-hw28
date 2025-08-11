@@ -1,0 +1,28 @@
+server:
+  port: ${SERVICE_PORT:8080}
+spring:
+  application:
+    name: loan-service
+  config:
+    import: ${CONFIG_IMPORT:configserver:http://localhost:8888}
+  profiles:
+    include:
+      - db
+      - kafka
+      - metric
+      - log
+      - eureka
+      - trace
+      - security
+      - feign
+      - bookfinder
+      - mailsender
+
+#springdoc:
+#  api-docs:
+#    path: '/v3/api-docs'
+#  swagger-ui:
+#    config-url: '/api/loan/v3/api-docs'  # или полный URL, например: http://gateway:port/v3/api-docs
+#    url: '/api/loan/v3/api-docs'  # Жёстко задаём путь к вашей спецификации
+#    disable-swagger-default-url: true  # Отключает Petstore
+#    path: '/api/loan/swagger-ui.html'

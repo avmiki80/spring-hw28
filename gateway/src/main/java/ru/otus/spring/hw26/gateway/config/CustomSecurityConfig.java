@@ -24,7 +24,16 @@ public class CustomSecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
                 .authorizeExchange(exchanges -> exchanges
-//                        .pathMatchers("/api/actuator/**").permitAll()
+                        .pathMatchers(
+//                                "/api/loan/actuator/**",
+                                "/api/loan/swagger-ui.html",
+                                "/api/loan/swagger-ui/**",
+                                "/api/loan/v3/api-docs/**",
+                                "/api/swagger-ui.html",
+                                "/api/swagger-ui/**",
+                                "/api/v3/api-docs/**"
+//                                "/api/actuator/**"
+                        ).permitAll()
 //                        .pathMatchers("/api/book/**", "/api/genre/**", "/api/author/**", "/api/comment/**").authenticated()
                         .pathMatchers("/api/**").authenticated()
                         .anyExchange().permitAll())

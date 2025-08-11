@@ -213,6 +213,10 @@ services:
       - KAFKA_URL=kafka:29092
       - EUREKA_URL=http://eureka-service1:8761/eureka
       - CONFIG_IMPORT=configserver:http://configuration-service:8888
+      - JWK_URI=http://keycloak:8080/realms/library/protocol/openid-connect/certs
+      - TOKEN_URL=http://keycloak:8080/realms/library/protocol/openid-connect/token
+      - MAIL_SEND_MODE=kafka
+      - MAIL_SENDER_URL=http://mailsender:8080
       - TRACE_URL=http://zipkin:9411
       - TRACE_ENABLED=true
       - LOGGING_ROOT_LEVEL=INFO
@@ -240,6 +244,10 @@ services:
       - KAFKA_URL=kafka:29092
       - EUREKA_URL=http://eureka-service1:8761/eureka
       - CONFIG_IMPORT=configserver:http://configuration-service:8888
+      - JWK_URI=http://keycloak:8080/realms/library/protocol/openid-connect/certs
+      - TOKEN_URL=http://keycloak:8080/realms/library/protocol/openid-connect/token
+      - MAIL_SEND_MODE=kafka
+      - MAIL_SENDER_URL=http://mailsender:8080
       - TRACE_URL=http://zipkin:9411
       - TRACE_ENABLED=true
       - LOGGING_ROOT_LEVEL=INFO
@@ -267,6 +275,10 @@ services:
       - KAFKA_URL=kafka:29092
       - EUREKA_URL=http://eureka-service1:8761/eureka
       - CONFIG_IMPORT=configserver:http://configuration-service:8888
+      - JWK_URI=http://keycloak:8080/realms/library/protocol/openid-connect/certs
+      - TOKEN_URL=http://keycloak:8080/realms/library/protocol/openid-connect/token
+      - MAIL_SEND_MODE=kafka
+      - MAIL_SENDER_URL=http://mailsender:8080
       - TRACE_URL=http://zipkin:9411
       - TRACE_ENABLED=true
       - LOGGING_ROOT_LEVEL=INFO
@@ -309,6 +321,60 @@ services:
       - monitoring1
     depends_on:
       - moderator-service
+      - configuration-service
+      - eureka-service1
+      - gateway-service
+
+  mailsender:
+    build:
+      context: .
+      dockerfile: mailsender/Dockerfile
+    container_name: mailsender
+    environment:
+      - SERVICE_PORT=8080
+      - KAFKA_URL=kafka:29092
+      - EUREKA_URL=http://eureka-service1:8761/eureka
+      - CONFIG_IMPORT=configserver:http://configuration-service:8888
+      - JWK_URI=http://keycloak:8080/realms/library/protocol/openid-connect/certs
+      - TRACE_URL=http://zipkin:9411
+      - TRACE_ENABLED=true
+      - LOGGING_ROOT_LEVEL=INFO
+      - LOGGING_LEVEL=ERROR
+      - LOGGING_KAFKA_LEVEL=ERROR
+    networks:
+      - monitoring1
+    depends_on:
+      - configuration-service
+      - eureka-service1
+      - gateway-service
+
+  loan-service:
+    build:
+      context: .
+      dockerfile: loan/Dockerfile
+    container_name: loan-service
+    environment:
+      - SERVICE_PORT=8080
+      - DB_URL=jdbc:postgresql://postgres:5432/library?currentSchema=library
+      - DB_LOGIN=postgres
+      - DB_PASSWORD=postgres
+      - KAFKA_URL=kafka:29092
+      - EUREKA_URL=http://eureka-service1:8761/eureka
+      - CONFIG_IMPORT=configserver:http://configuration-service:8888
+      - JWK_URI=http://keycloak:8080/realms/library/protocol/openid-connect/certs
+      - BOOK_FIND_MODE=feign
+      - BOOK_SERVICE_URL=http://book-service:8080
+      - MAIL_SEND_MODE=kafka
+      - MAIL_SENDER_URL=http://mailsender:8080
+      - TRACE_URL=http://zipkin:9411
+      - TRACE_ENABLED=true
+      - LOGGING_ROOT_LEVEL=INFO
+      - LOGGING_LEVEL=ERROR
+      - LOGGING_KAFKA_LEVEL=ERROR
+      - LOGGING_FEIGN_LEVEL=ERROR
+    networks:
+      - monitoring1
+    depends_on:
       - configuration-service
       - eureka-service1
       - gateway-service

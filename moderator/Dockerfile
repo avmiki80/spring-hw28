@@ -6,6 +6,8 @@ COPY moderator/pom.xml ./moderator/pom.xml
 COPY model/pom.xml ./model/pom.xml
 # костыль, чтоб собрка не падала из-за не найденого модуля
 COPY book/pom.xml ./book/pom.xml
+COPY mailsender/pom.xml ./mailsender/pom.xml
+COPY loan/pom.xml ./loan/pom.xml
 
 COPY model/src ./model/src
 RUN mvn clean install -pl model -am -Dmaven.test.skip=true -DskipTests

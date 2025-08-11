@@ -3,10 +3,12 @@ package ru.otus.spring.hw26.book.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.otus.spring.hw26.book.aspect.Auditing;
 import ru.otus.spring.hw26.book.domain.Genre;
 import ru.otus.spring.hw26.book.dto.GenreDto;
 import ru.otus.spring.hw26.book.exception.ServiceException;
 import ru.otus.spring.hw26.book.mapper.Mapper;
+import ru.otus.spring.hw26.book.repository.BookRepository;
 import ru.otus.spring.hw26.book.repository.GenreRepository;
 import ru.otus.spring.hw26.book.dto.GenreSearch;
 
@@ -18,9 +20,10 @@ import java.util.stream.Collectors;
 public class GenreService implements CrudService<GenreDto, GenreSearch> {
     private final GenreRepository genreRepository;
     private final Mapper<GenreDto, Genre> genreMapper;
-
+    private final BookRepository bookRepository;
     @Override
     @Transactional
+    @Auditing
     public GenreDto save(GenreDto obj) {
         Genre genre = genreMapper.toEntity(obj);
         return genreMapper.toDto(genreRepository.save(genre));
@@ -28,6 +31,7 @@ public class GenreService implements CrudService<GenreDto, GenreSearch> {
 
     @Override
     @Transactional
+    @Auditing
     public GenreDto update(long id, GenreDto obj) {
         Genre persistGenre =  genreRepository.findById(id).orElseThrow(() -> new ServiceException("exception.object-not-found"));
         persistGenre.setTitle(obj.getTitle());
@@ -36,9 +40,13 @@ public class GenreService implements CrudService<GenreDto, GenreSearch> {
 
     @Override
     @Transactional
+    @Auditing
     public void deleteById(long id) {
         try {
-            genreRepository.deleteById(id);
+            if(bookRepository.findByGenreId(id).isEmpty())
+                genreRepository.deleteById(id);
+            else
+                throw new ServiceException("Нельзя удалить жанр связаный с книгой");
         } catch (Exception e){
             throw new ServiceException(e.getMessage());
         }

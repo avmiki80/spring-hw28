@@ -1,16 +1,15 @@
 package ru.otus.spring.hw26.book.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CommentDto {
+@ToString(of = {"id"})
+public class CommentDto implements BaseDto{
     private Long id;
     private String text;
     private String bookTitle;
+    private String userId;
 }

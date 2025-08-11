@@ -25,8 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @ExtendWith(SpringExtension.class)
 @DisplayName("Класс GenreService для работы с жанрами")
 class GenreServiceTest {
-    private static final int EXPECTED_GENRES_COUNT = 2;
+    private static final int EXPECTED_GENRES_COUNT = 3;
     private static final long EXISTING_GENRE_ID = 1L;
+    private static final long EXISTING_GENRE_FOR_DELETE_ID = 3L;
     private static final String EXISTING_GENRE_TITLE = "Фантастика";
     private static final long UNEXISTING_GENRE_ID = 3000L;
 
@@ -92,12 +93,20 @@ class GenreServiceTest {
     public void whenGetGenreWithUnexistedId_thenThrowsException(){
         assertThatThrownBy(() -> genreService.findById(UNEXISTING_GENRE_ID)).isInstanceOf(ServiceException.class);
     }
+    @DisplayName("Удаление жанра по ID, если существует книга")
+    @Test
+    public void whenDeleteGenreWithBook_thenThrowsExceptionIfGetGenreAgain(){
+        assertAll(
+                () -> assertThatThrownBy(() -> genreService.deleteById(EXISTING_GENRE_ID)).isInstanceOf(ServiceException.class),
+                () -> assertDoesNotThrow(() -> genreService.findById(EXISTING_GENRE_ID))
+        );
+    }
     @DisplayName("Удаление жанра по ID")
     @Test
     public void whenDeleteGenre_thenThrowsExceptionIfGetGenreAgain(){
         assertAll(
-                () -> assertDoesNotThrow(() -> genreService.deleteById(EXISTING_GENRE_ID)),
-                () -> assertThatThrownBy(() -> genreService.findById(EXISTING_GENRE_ID)).isInstanceOf(ServiceException.class)
+                () -> assertDoesNotThrow(() -> genreService.deleteById(EXISTING_GENRE_FOR_DELETE_ID)),
+                () -> assertThatThrownBy(() -> genreService.findById(EXISTING_GENRE_FOR_DELETE_ID)).isInstanceOf(ServiceException.class)
         );
     }
 }

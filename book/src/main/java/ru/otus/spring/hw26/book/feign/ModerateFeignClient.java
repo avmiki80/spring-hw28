@@ -11,7 +11,7 @@ import ru.otus.spring.hw26.book.dto.CommentDto;
 
 import java.util.List;
 
-@FeignClient(name = "moderator-service", fallback = ModerateFeignFallback.class)
+@FeignClient(name = "moderator-service", fallback = ModerateFeignFallback.class, configuration = OAuth2FeignConfig.class)
 public interface ModerateFeignClient {
     @CircuitBreaker(name = "moderatorService")
     // задал retry в учебных целях,

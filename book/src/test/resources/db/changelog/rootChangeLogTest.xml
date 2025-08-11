@@ -6,6 +6,7 @@
 
     <includeAll path="classpath:1.00.01" relativeToChangelogFile="true"/>
     <includeAll path="classpath:1.00.02" relativeToChangelogFile="true"/>
+    <includeAll path="classpath:1.00.03" relativeToChangelogFile="true"/>
     <includeAll path="classpath:data-test" relativeToChangelogFile="true"/>
 
 
