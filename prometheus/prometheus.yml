@@ -1,0 +1,30 @@
+global:
+  scrape_interval: 15s  # Частота сбора метрик
+
+scrape_configs:
+  - job_name: 'book-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['book-service:8080']
+#      - targets: ['host.docker.internal:8080']
+
+  - job_name: 'moderator-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['moderator-service:8080', 'moderator-service:8081', 'moderator-service2:8082', 'moderator-service3:8083']
+
+  - job_name: 'mailsender'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['mailsender:8080']
+  #      - targets: ['host.docker.internal:8080']
+
+  - job_name: 'loan-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['loan-service:8080']
+  #      - targets: ['host.docker.internal:8080']
+
+  - job_name: 'kafka-jmx'
+    static_configs:
+      - targets: ['kafka:7071']

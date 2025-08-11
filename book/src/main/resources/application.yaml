@@ -1,0 +1,27 @@
+server:
+  port: ${SERVICE_PORT:8080}
+  ssl:
+    enabled: false
+  tomcat:
+    connection-timeout: ${CONNECTION_TIMEOUT:60000}
+  mvc:
+    async:
+      request-timeout: ${REQUEST_TIMEOUT:180000}
+
+spring:
+  application:
+    name: book-service
+  config:
+    import: ${CONFIG_IMPORT:configserver:http://localhost:8888}
+  profiles:
+    include:
+      - db
+      - kafka
+      - metric
+      - log
+      - eureka
+      - moderate
+      - security
+      - feign
+      - trace
+

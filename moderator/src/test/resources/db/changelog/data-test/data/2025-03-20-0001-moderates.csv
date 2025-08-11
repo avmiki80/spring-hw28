@@ -1,0 +1,9 @@
+id;text;moderation_time;comment_id
+1;CommentTest1;2025-03-29T20:25:37;1
+2;CommentTest2;2025-03-29T20:26:37;2
+3;CommentTest3;2025-03-29T20:26:38;2
+4;CommentTest4;2025-03-29T20:26:39;1
+5;CommentTest5;2025-03-29T20:27:37;3
+6;CommentTest6;2025-03-29T20:27:38;4
+7;CommentTest7;2025-03-29T20:27:39;3
+8;CommentTest8;2025-03-29T20:28:37;5

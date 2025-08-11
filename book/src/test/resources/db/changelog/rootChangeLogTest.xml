@@ -1,0 +1,13 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <includeAll path="classpath:1.00.01" relativeToChangelogFile="true"/>
+    <includeAll path="classpath:1.00.02" relativeToChangelogFile="true"/>
+    <includeAll path="classpath:1.00.03" relativeToChangelogFile="true"/>
+    <includeAll path="classpath:data-test" relativeToChangelogFile="true"/>
+
+
+</databaseChangeLog>

@@ -1,0 +1,38 @@
+server:
+  port: ${SERVICE_PORT:8080}
+spring:
+  application:
+    name: mailsender
+  config:
+    import: ${CONFIG_IMPORT:configserver:http://localhost:8888}
+  profiles:
+    include:
+      - kafka
+      - metric
+      - log
+      - eureka
+      - trace
+      - security
+
+  mail:
+    host: smtp.mail.ru
+    port: 465
+    username: avmiki81@mail.ru
+    password: r6noM4necXCgejmdc0vB
+    properties:
+      mail:
+        from: avmiki81@mail.ru
+        debug: true
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+#          ssl:
+#            enable: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000

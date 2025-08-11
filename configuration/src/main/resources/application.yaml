@@ -1,0 +1,17 @@
+server:
+  port: ${SERVICE_PORT:8888}
+spring:
+  application:
+    name: configuration
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${GIT_URI:https://github.com/avmiki80/otus-config/}
+          search-paths: {application}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="avmiki80" id="2024-12-13T09:01:40.534763" objectQuotingStrategy="LEGACY">
+        <preConditions onError="HALT" onFail="MARK_RAN" onSqlOutput="IGNORE">
+            <not>
+                <tableExists tableName="comments"/>
+            </not>
+        </preConditions>
+        <createTable remarks="Комментарии" tableName="comments">
+            <column name="id" remarks="Первичный ключ" type="bigint" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" remarks="Комментарий" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+            <column name="book_id" remarks="Внешний ключ книги" type="bigint">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_comments_books"
+                        deleteCascade="true"
+                        references="books(id)"
+                />
+            </column>
+        </createTable>
+        <createSequence incrementBy="1" sequenceName="comments_id_seq" startValue="10"/>
+        <addPrimaryKey columnNames="id" constraintName="pk_comment" tableName="comments"/>
+    </changeSet>
+</databaseChangeLog>
